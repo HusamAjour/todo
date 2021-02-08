@@ -1,4 +1,4 @@
-import ToDo from './components/todo/todo.js';
+import ToDo from './components/todo.js';
 import './App.scss';
 import React from 'react';
 function App() {
