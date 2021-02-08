@@ -62,15 +62,13 @@ function ToDo(props) {
       mode: 'cors',
     })
       .then((data) => data.json())
-      .then((deleteddItem) =>
-        setList(
-          list.filter((listItem) => {
-            if (deleteddItem._id !== listItem._id) {
-              return listItem;
-            }
-          })
-        )
-      )
+      .then((deleteddItem) => {
+        let result = [];
+        list.forEach((listItem) => {
+          if (listItem._id !== deleteddItem._id) result.push(listItem);
+        });
+        setList(result);
+      })
       .catch(console.error);
   };
 
