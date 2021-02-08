@@ -3,8 +3,8 @@ import { Card, Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useForm.js';
 
 function TodoForm(props) {
-  const [item, setItem] = useState({});
-  const [handleSubmit, handleChange, values] = useForm(getFromData);
+  const [setItem] = useState({});
+  const [handleSubmit, handleChange] = useForm(getFromData);
 
   function getFromData(item){
     console.log('inside From component!');
