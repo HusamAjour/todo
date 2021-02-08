@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import TodoForm from './form.js';
-import TodoList from './list.js';
+import TodoForm from '../components/todo/form.js';
+import TodoList from '../components/todo/list.js';
 
 import './todo.scss';
 
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
-
 
 const ToDo = () => {
 

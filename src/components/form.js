@@ -1,21 +1,29 @@
 import React, { useState } from 'react';
 import { Card, Form, Button } from 'react-bootstrap';
+import useForm from '../hooks/useForm.js';
 
 function TodoForm(props) {
   const [item, setItem] = useState({});
+  const [handleSubmit, handleChange, values] = useForm(getFromData);
 
-  const handleInputChange = (e) => {
-    setItem({ ...item, [e.target.name]: e.target.value });
-    console.log(item);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
+  function getFromData(item){
+    console.log('inside From component!');
     props.handleSubmit(item);
-    const item2 = {};
-    setItem(item2);
-  };
+    setItem({});
+  }
+
+  // const handleInputChange = (e) => {
+  //   setItem({ ...item, [e.target.name]: e.target.value });
+  //   console.log(item);
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   e.target.reset();
+  //   props.handleSubmit(item);
+  //   const item2 = {};
+  //   setItem(item2);
+  // };
 
   return (
     <>
@@ -29,7 +37,7 @@ function TodoForm(props) {
                 type="text"
                 name="text"
                 placeholder="Add To Do List Item"
-                onChange={handleInputChange}
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlInput1">
@@ -38,7 +46,7 @@ function TodoForm(props) {
                 type="text"
                 name="assignee"
                 placeholder="Assigned To"
-                onChange={handleInputChange}
+                onChange={handleChange}
               />
             </Form.Group>
             <Form.Group controlId="formBasicRangeCustom">
@@ -49,7 +57,7 @@ function TodoForm(props) {
                 min="1"
                 max="5"
                 name="difficulty"
-                onChange={handleInputChange}
+                onChange={handleChange}
               />
             </Form.Group>
             <Button type="submit">Add Item</Button>
