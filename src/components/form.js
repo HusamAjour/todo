@@ -3,31 +3,19 @@ import { Card, Form, Button } from 'react-bootstrap';
 import useForm from '../hooks/useForm.js';
 
 function TodoForm(props) {
-  const [setItem] = useState({});
+  const [item, setItem] = useState({});
   const [handleSubmit, handleChange] = useForm(getFromData);
 
   function getFromData(item){
     console.log('inside From component!');
+    console.log(item);
     props.handleSubmit(item);
     setItem({});
   }
 
-  // const handleInputChange = (e) => {
-  //   setItem({ ...item, [e.target.name]: e.target.value });
-  //   console.log(item);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   e.target.reset();
-  //   props.handleSubmit(item);
-  //   const item2 = {};
-  //   setItem(item2);
-  // };
-
   return (
     <>
-      <Card style={{ width: '18rem' }}>
+      <Card>
         <Card.Body>
           <Card.Title>Add Item</Card.Title>
           <Form onSubmit={handleSubmit}>
@@ -69,39 +57,3 @@ function TodoForm(props) {
 }
 
 export default TodoForm;
-
-/*
-
-<form onSubmit={handleSubmit}>
-        <label>
-          <span>To Do Item</span>
-          <input
-            name="text"
-            placeholder="Add To Do List Item"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          <span>Difficulty Rating</span>
-          <input
-            defaultValue="1"
-            type="range"
-            min="1"
-            max="5"
-            name="difficulty"
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          <span>Assigned To</span>
-          <input
-            type="text"
-            name="assignee"
-            placeholder="Assigned To"
-            onChange={handleInputChange}
-          />
-        </label>
-        <button>Add Item</button>
-      </form>
-
-      */
