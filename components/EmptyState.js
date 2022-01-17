@@ -23,7 +23,7 @@ function EmptyState(props) {
       <div className="flex items-center justify-center flex-col w-[280px] sm:w-[400px] m-auto mt-10">
         <GoogleButton onClick={() => auth.signinWithGoogle()} />
         <FacebookButton onClick={() => auth.singinWithFacebook()} />
-        <TwitterButton onClick={() => auth.singinWithTwitter()} />
+        {/* <TwitterButton onClick={() => auth.singinWithTwitter()} /> */}
         <GithubButton onClick={() => auth.singinWithGithub()} />
       </div>
     </>
