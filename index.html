@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Todo app</title>
+
+</head>
+
+<body class="light-mode">
+  <main class="main">
+    <div class="top-bg"></div>
+    <div class="content">
+      <div class="title-section">
+        <h1>TODO</h1>
+        <img src="./images/icon-moon.svg" alt="mode icon" class="mode-icon" id="modeIcon">
+      </div>
+      <div class="add-item-section">
+        <form id="addTodoItem">
+          <div class="input-wrapper">
+            <div class="checkbox-new"></div>
+            <input type="text" name="addNewItem" placeholder="Create a new todo...">
+          </div>
+        </form>
+      </div>
+
+      <div class="existing-items-section">
+
+        <div class="todo-items" id=todoItems>
+
+        </div>
+        <div class="todo-controls">
+          <div class="todo-items-count">
+            <span id="itemsCount">0 items left</span>
+          </div>
+          <div class="todo-btns" id="todoBtns">
+            <span onclick="filterTodoItems('All')" class="active">All</span>
+            <span onclick="filterTodoItems('Active')">Active</span>
+            <span onclick="filterTodoItems('Completed')">Completed</span>
+          </div>
+          <div class="todo-clear-completed"><span onclick="clearCompleted()">Clear Completed</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <script src=" ./js/script.js"></script>
+</body>
+
+</html>
+
+<!-- Add dynamic number -->
+
+<!-- All
+  Active
+  Completed
+  Clear Completed
+  Drag and drop to reorder list
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="#">Your Name Here</a>.
+  </div> -->
