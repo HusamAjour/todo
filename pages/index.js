@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Head from "next/head";
 
 import MainShell from "@/components/MainShell";
+import EmptyState from "@/components/EmptyState";
 import Header from "@/components/Header";
 import List from "@/components/List";
 
@@ -27,8 +28,17 @@ export default function Home() {
       </Head>
       <MainShell>
         <div className="max-w-540 m-auto px-[20px]">
-          <Header />
-          <List />
+          {auth.user && (
+            <>
+              <Header />
+              <List />
+            </>
+          )}
+          {!auth.user && (
+            <>
+              <EmptyState />
+            </>
+          )}
         </div>
       </MainShell>
     </>
