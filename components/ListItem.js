@@ -9,7 +9,7 @@ import useToggle from "@/hooks/useToggle";
 import { useMode } from "@/lib/ModeContext";
 import { useAuth } from "@/lib/auth";
 
-import { deleteTodoItem } from "@/lib/db";
+import { deleteTodoItem, toggleItemStatus } from "@/lib/db";
 
 function ListItem({ id, text, checked, index }) {
   const borderStyle = {
@@ -38,6 +38,25 @@ function ListItem({ id, text, checked, index }) {
     );
   };
 
+  const toggleTodoItem = async () => {
+    toggleChecked();
+    let x = await toggleItemStatus(id, checked);
+
+    mutate(
+      ["/api/getItems", auth.user.token],
+      async (data) => {
+        const firstHalf = data.slice(0, index);
+        const secondHalf = data.slice(index + 1);
+        return [
+          ...firstHalf,
+          { ...data[index], checked: !checked },
+          ...secondHalf,
+        ];
+      },
+      false
+    );
+  };
+
   return (
     <div
       onMouseEnter={() => toggleHovered(true)}
@@ -50,7 +69,7 @@ function ListItem({ id, text, checked, index }) {
         id={id}
         value={isChecked}
         checked={isChecked}
-        onChange={toggleChecked}
+        onChange={toggleTodoItem}
       />
       <label
         htmlFor={id}
