@@ -23,7 +23,10 @@ function List(props) {
     data: todItems,
     error,
     mutate,
-  } = useSWR(auth.user ? [`/api/getItems`, auth.user.token] : null, fetcher);
+  } = useSWR(
+    auth.user && auth.user.token ? [`/api/getItems`, auth.user.token] : null,
+    fetcher
+  );
 
   return (
     <>
