@@ -12,11 +12,14 @@ import { useInputRef } from "@/lib/InputFocusContext";
 
 import { createTodoItem } from "@/lib/db";
 
+import { useSWRConfig } from "swr";
+
 function Header(props) {
   const mode = useMode();
   const toggleMode = useSetMode();
   const auth = useAuth();
   const { inputRef } = useInputRef();
+  const { mutate } = useSWRConfig();
 
   const storeTodoItem = async (e) => {
     e.preventDefault();
@@ -27,8 +30,16 @@ function Header(props) {
         text: inputRef.current.value,
         checked: false,
       };
-      let result = await createTodoItem(newItem);
+      let { id } = await createTodoItem(newItem);
       inputRef.current.value = "";
+
+      mutate(
+        ["/api/getItems", auth.user.token],
+        async (data) => {
+          return [...data, { ...newItem, id }];
+        },
+        false
+      );
     }
   };
   return (
