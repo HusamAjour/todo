@@ -2,11 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/public/*": ["public/*"],
       "@/components/*": ["components/*"],
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
       "@/utils/*": ["utils/*"],
-      "@/images/*": ["./public/images/*"]
+      "@/images/*": ["public/images/*"]
     }
   }
 }
