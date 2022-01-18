@@ -1,11 +1,11 @@
 import { getUserTodoItems } from "@/lib/db";
 // import { auth } from "firebase-admin";
-
-import { auth } from "@/lib/firebase-admin";
+import { verifyIdToken, getAuth } from "firebase-admin/auth";
+import app from "@/lib/firebase-admin";
 
 export default async function handler(req, res) {
   try {
-    const { uid } = await auth.verifyIdToken(req.headers.token);
+    const { uid } = await getAuth().verifyIdToken(req.headers.token);
 
     let items = await getUserTodoItems(uid);
 
