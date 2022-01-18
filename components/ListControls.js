@@ -1,11 +1,21 @@
 import React from "react";
-function FilterButton({ children, ...props }) {
+
+import { useFilter } from "@/lib/FilterContext";
+
+function FilterButton({ children, text, ...props }) {
+  const { filter, changeFilter } = useFilter();
+
   return (
     <span
+      onClick={() => changeFilter(text)}
       {...props}
-      className="mobile:relative mobile:text-[14px] dark:hover:text-controls-hover-dark hover:text-controls-hover-light focus:text-controls-blue font-bold"
+      className={`mobile:relative capitalize mobile:text-[14px]  ${
+        filter === text
+          ? "text-controls-blue"
+          : "dark:hover:text-controls-hover-dark hover:text-controls-hover-light"
+      } focus:text-controls-blue font-bold`}
     >
-      {children}
+      {text}
     </span>
   );
 }
@@ -16,9 +26,9 @@ function ListControls(props) {
         <span className="mobile:text-[14px]">{props.count} items</span>
       </div>
       <div className="cursor-pointer dark:text-controls-dark text-controls-light flex gap-[18px] mobile:absolute mobile:top-[52px] mobile:w-full mobile:mt-[15px] mobile:left-[0] mobile:flex mobile:justify-center mobile:py-[18px] mobile:px-[10px] mobile:rounded-[5px] dark:mobile:bg-mode-dark mobile:bg-mode-light">
-        <FilterButton>All</FilterButton>
-        <FilterButton>Active</FilterButton>
-        <FilterButton>Completed</FilterButton>
+        <FilterButton text="all" />
+        <FilterButton text="active" />
+        <FilterButton text="completed" />
       </div>
       <div className="cursor-pointer dark:text-controls-dark text-controls-light">
         <span className="mobile:text-[14px] dark:hover:text-controls-hover-dark hover:text-controls-hover-light focus:text-controls-blue">

@@ -110,7 +110,7 @@ function Header(props) {
       <div className="mb-25px add-item-section">
         <form id="addTodoItem" onSubmit={storeTodoItem}>
           <div className="relative w-full dark:bg-mode-dark bg-mode-light rounded-[5px]">
-            <div className="absolute border border-border-light dark:border-border-light rounded-full w-24px h-24px top-[19px] left-[24px] content-none"></div>
+            <div className="absolute border border-border-light dark:border-border-dark rounded-full w-24px h-24px top-[19px] left-[24px] content-none"></div>
             <input
               className="relative text-[18px] placeholder:text-[18px] mobile:text-[14px] mobile:placeholder:text-[14px] py-22px pl-74px	focus:border-0 hover:border-0 focus:outline-0 hover:outline-0 w-full dark:text-todo-dark text-todo-light border-0 bg-transparent caret-todoBlue"
               type="text"
