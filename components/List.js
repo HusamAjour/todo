@@ -9,7 +9,6 @@ import ListItemSkeleton from "./ListItemSkeleton";
 import ListEmptyState from "./ListEmptyState";
 
 import { useAuth } from "@/lib/auth";
-import { useFilter } from "@/lib/FilterContext";
 
 import fetcher from "@/utils/fetcher";
 
@@ -19,7 +18,6 @@ import { useFilter } from "@/lib/FilterContext";
 
 function List(props) {
   const auth = useAuth();
-  const { filter } = useFilter();
   console.log(filter);
   const {
     data: todItems,
@@ -28,7 +26,6 @@ function List(props) {
   } = useSWR(auth.user ? [`/api/getItems`, auth.user.token] : null, fetcher);
   // console.log("23: ", { todItems });
   const { filter } = useFilter();
-
 
   return (
     <>

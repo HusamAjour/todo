@@ -7,7 +7,6 @@ import CrossIcon from "@/images/icon-cross.svg";
 import { useAuth } from "@/lib/auth";
 import useToggle from "@/hooks/useToggle";
 import { useMode } from "@/lib/ModeContext";
-import { useAuth } from "@/lib/auth";
 
 import { useSWRConfig } from "swr";
 
@@ -39,7 +38,6 @@ function ListItem({ id, text, index, checked }) {
       },
       false
     );
-
   };
 
   const toggleTodoItem = async () => {
