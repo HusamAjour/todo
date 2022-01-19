@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 import Image from "next/image";
-import { useSWRConfig } from "swr";
 
 import CrossIcon from "@/images/icon-cross.svg";
 
 import useToggle from "@/hooks/useToggle";
 import { useMode } from "@/lib/ModeContext";
 import { useAuth } from "@/lib/auth";
-
 import { deleteTodoItem, toggleItemStatus } from "@/lib/db";
+
+import { useSWRConfig } from "swr";
 
 function ListItem({ id, text, checked, index }) {
   const borderStyle = {
@@ -27,34 +27,34 @@ function ListItem({ id, text, checked, index }) {
   const deleteItem = async () => {
     let x = await deleteTodoItem(id);
 
-    mutate(
-      ["/api/getItems", auth.user.token],
-      async (data) => {
-        const updatedData = [...data];
-        updatedData.splice(index, 1);
-        return updatedData;
-      },
-      false
-    );
+    // mutate(
+    //   ["/api/getItems", auth.user.token],
+    //   async (data) => {
+    //     const updatedData = [...data];
+    //     updatedData.splice(index, 1);
+    //     return updatedData;
+    //   },
+    //   false
+    // );
   };
 
   const toggleTodoItem = async () => {
     toggleChecked();
     let x = await toggleItemStatus(id, checked);
 
-    mutate(
-      ["/api/getItems", auth.user.token],
-      async (data) => {
-        const firstHalf = data.slice(0, index);
-        const secondHalf = data.slice(index + 1);
-        return [
-          ...firstHalf,
-          { ...data[index], checked: !checked },
-          ...secondHalf,
-        ];
-      },
-      false
-    );
+    // mutate(
+    //   ["/api/getItems", auth.user.token],
+    //   async (data) => {
+    //     const firstHalf = data.slice(0, index);
+    //     const secondHalf = data.slice(index + 1);
+    //     return [
+    //       ...firstHalf,
+    //       { ...data[index], checked: !checked },
+    //       ...secondHalf,
+    //     ];
+    //   },
+    //   false
+    // );
   };
 
   return (
