@@ -4,10 +4,17 @@ import Image from "next/image";
 
 import CrossIcon from "../public/images/icon-cross.svg";
 
+import { useAuth } from "@/lib/auth";
 import useToggle from "@/hooks/useToggle";
 import { useMode } from "@/lib/ModeContext";
 
+import { useSWRConfig } from "swr";
+
+import { deleteTodoItem } from "@/lib/db";
+
 function ListItem({ id, text, checked }) {
+  const auth = useAuth();
+
   const borderStyle = {
     dark: "linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%)) padding-box, linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box",
     light:
@@ -16,6 +23,23 @@ function ListItem({ id, text, checked }) {
   const mode = useMode();
   const [isChecked, toggleChecked] = useToggle(checked || false);
   const [isHovered, toggleHovered] = useState(false);
+
+  const { mutate } = useSWRConfig();
+
+  const deleteItem = async () => {
+    let x = await deleteTodoItem(id);
+
+    mutate(
+      ["/api/getItems", auth.user.token],
+      async (data) => {
+        const updatedData = [...data];
+        updatedData.splice(index, 1);
+        return updatedData;
+      },
+      false
+    );
+  };
+
   return (
     <div
       onMouseEnter={() => toggleHovered(true)}
@@ -59,9 +83,9 @@ function ListItem({ id, text, checked }) {
         <div
           className={`${
             isHovered ? "opacity-100" : "opacity-0"
-          }  absolute right-[24px] top-[22px]`}
+          }  absolute right-[24px] top-[22px] z-[10] hover:cursor-pointer`}
         >
-          <Image src={CrossIcon} alt="delete item" />
+          <Image src={CrossIcon} alt="delete item" onClick={deleteItem} />
         </div>
       </label>
     </div>

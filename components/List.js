@@ -25,8 +25,8 @@ function List(props) {
     <>
       {todItems && todItems.length > 0 && (
         <div className="dark:shadow-list-dark shadow-list-light rounded-[5px]">
-          {todItems.map((item) => (
-            <ListItem key={item.id} {...item} />
+          {todItems.map((item, i) => (
+            <ListItem key={item.id} index={i} {...item} />
           ))}
           <ListControls count={todItems.length} />
         </div>

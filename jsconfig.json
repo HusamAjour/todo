@@ -6,7 +6,7 @@
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
       "@/utils/*": ["utils/*"],
-      "@/images/*": ["./public/images/*"]
+      "@/images/*": ["public/images/*"]
     }
   }
 }
