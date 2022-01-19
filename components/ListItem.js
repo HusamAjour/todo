@@ -10,7 +10,7 @@ import { useMode } from "@/lib/ModeContext";
 
 import { useSWRConfig } from "swr";
 
-import { deleteTodoItem } from "@/lib/db";
+import { deleteTodoItem, toggleItemStatus } from "@/lib/db";
 
 function ListItem({ id, text, index, checked }) {
   const auth = useAuth();
@@ -40,6 +40,25 @@ function ListItem({ id, text, index, checked }) {
     );
   };
 
+  const toggleTodoItem = async () => {
+    toggleChecked();
+    let x = await toggleItemStatus(id, checked);
+
+    mutate(
+      ["/api/getItems", auth.user.token],
+      async (data) => {
+        const firstHalf = data.slice(0, index);
+        const secondHalf = data.slice(index + 1);
+        return [
+          ...firstHalf,
+          { ...data[index], checked: !checked },
+          ...secondHalf,
+        ];
+      },
+      false
+    );
+  };
+
   return (
     <div
       onMouseEnter={() => toggleHovered(true)}
@@ -52,7 +71,7 @@ function ListItem({ id, text, index, checked }) {
         id={id}
         value={isChecked}
         checked={isChecked}
-        onChange={toggleChecked}
+        onChange={toggleTodoItem}
       />
       <label
         htmlFor={id}

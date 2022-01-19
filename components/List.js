@@ -12,6 +12,8 @@ import { useAuth } from "@/lib/auth";
 import fetcher from "@/utils/fetcher";
 import { getUserTodoItems } from "@/lib/db";
 
+import { useFilter } from "@/lib/FilterContext";
+
 function List(props) {
   const auth = useAuth();
   const {
@@ -20,14 +22,21 @@ function List(props) {
     mutate,
   } = useSWR(auth.user ? [`/api/getItems`, auth.user.token] : null, fetcher);
   // console.log("23: ", { todItems });
+  const { filter } = useFilter();
 
   return (
     <>
       {todItems && todItems.length > 0 && (
         <div className="dark:shadow-list-dark shadow-list-light rounded-[5px]">
-          {todItems.map((item, i) => (
-            <ListItem key={item.id} index={i} {...item} />
-          ))}
+          {todItems.map((item, i) => {
+            if (filter === "completed" && item.checked) {
+              return <ListItem key={item.id} index={i} {...item} />;
+            } else if (filter === "active" && !item.checked) {
+              return <ListItem key={item.id} index={i} {...item} />;
+            } else if (filter === "all") {
+              return <ListItem key={item.id} index={i} {...item} />;
+            }
+          })}
           <ListControls count={todItems.length} />
         </div>
       )}
