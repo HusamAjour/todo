@@ -4,14 +4,18 @@ import Image from "next/image";
 
 import CrossIcon from "@/images/icon-cross.svg";
 
+import { useAuth } from "@/lib/auth";
 import useToggle from "@/hooks/useToggle";
 import { useMode } from "@/lib/ModeContext";
 import { useAuth } from "@/lib/auth";
-import { deleteTodoItem, toggleItemStatus } from "@/lib/db";
 
 import { useSWRConfig } from "swr";
 
-function ListItem({ id, text, checked, index }) {
+import { deleteTodoItem, toggleItemStatus } from "@/lib/db";
+
+function ListItem({ id, text, index, checked }) {
+  const auth = useAuth();
+
   const borderStyle = {
     dark: "linear-gradient(hsl(235, 24%, 19%), hsl(235, 24%, 19%)) padding-box, linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%)) border-box",
     light:
@@ -20,41 +24,40 @@ function ListItem({ id, text, checked, index }) {
   const mode = useMode();
   const [isChecked, toggleChecked] = useToggle(checked || false);
   const [isHovered, toggleHovered] = useState(false);
-  const auth = useAuth();
 
   const { mutate } = useSWRConfig();
 
   const deleteItem = async () => {
     let x = await deleteTodoItem(id);
 
-    // mutate(
-    //   ["/api/getItems", auth.user.token],
-    //   async (data) => {
-    //     const updatedData = [...data];
-    //     updatedData.splice(index, 1);
-    //     return updatedData;
-    //   },
-    //   false
-    // );
+    mutate(
+      ["/api/getItems", auth.user.token],
+      async (data) => {
+        const updatedData = [...data];
+        updatedData.splice(index, 1);
+        return updatedData;
+      },
+      false
+    );
+
   };
 
   const toggleTodoItem = async () => {
     toggleChecked();
     let x = await toggleItemStatus(id, checked);
-
-    // mutate(
-    //   ["/api/getItems", auth.user.token],
-    //   async (data) => {
-    //     const firstHalf = data.slice(0, index);
-    //     const secondHalf = data.slice(index + 1);
-    //     return [
-    //       ...firstHalf,
-    //       { ...data[index], checked: !checked },
-    //       ...secondHalf,
-    //     ];
-    //   },
-    //   false
-    // );
+    mutate(
+      ["/api/getItems", auth.user.token],
+      async (data) => {
+        const firstHalf = data.slice(0, index);
+        const secondHalf = data.slice(index + 1);
+        return [
+          ...firstHalf,
+          { ...data[index], checked: !checked },
+          ...secondHalf,
+        ];
+      },
+      false
+    );
   };
 
   return (
