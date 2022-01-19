@@ -12,7 +12,7 @@ import { useSWRConfig } from "swr";
 
 import { deleteTodoItem } from "@/lib/db";
 
-function ListItem({ id, text, checked }) {
+function ListItem({ id, text, index, checked }) {
   const auth = useAuth();
 
   const borderStyle = {
@@ -80,14 +80,14 @@ function ListItem({ id, text, checked }) {
                 : "",
           }}
         ></div>
-        <div
-          className={`${
-            isHovered ? "opacity-100" : "opacity-0"
-          }  absolute right-[24px] top-[22px] z-[10] hover:cursor-pointer`}
-        >
-          <Image src={CrossIcon} alt="delete item" onClick={deleteItem} />
-        </div>
       </label>
+      <div
+        className={`${
+          isHovered ? "opacity-100" : "opacity-0"
+        }  absolute right-[24px] top-[22px] z-[10] hover:cursor-pointer`}
+      >
+        <Image src={CrossIcon} alt="delete item" onClick={deleteItem} />
+      </div>
     </div>
   );
 }
