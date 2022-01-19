@@ -9,11 +9,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <InputRefProvider>
       <ModeProvider>
-        <AuthProvider>
-          <FilterProvider>
+        <FilterProvider>
+          <AuthProvider>
             <Component {...pageProps} />
-          </FilterProvider>
-        </AuthProvider>
+          </AuthProvider>
+        </FilterProvider>
       </ModeProvider>
     </InputRefProvider>
   );
