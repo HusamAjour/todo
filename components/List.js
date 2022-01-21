@@ -9,16 +9,13 @@ import ListItemSkeleton from "./ListItemSkeleton";
 import ListEmptyState from "./ListEmptyState";
 
 import { useAuth } from "@/lib/auth";
-
 import fetcher from "@/utils/fetcher";
-
 import { getUserTodoItems } from "@/lib/db";
 
 import { useFilter } from "@/lib/FilterContext";
 
 function List(props) {
   const auth = useAuth();
-  console.log(filter);
   const {
     data: todItems,
     error,

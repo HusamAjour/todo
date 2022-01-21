@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Image from "next/image";
 
-import CrossIcon from "@/images/icon-cross.svg";
+import CrossIcon from "../public/images/icon-cross.svg";
 
 import { useAuth } from "@/lib/auth";
 import useToggle from "@/hooks/useToggle";
@@ -43,6 +43,7 @@ function ListItem({ id, text, index, checked }) {
   const toggleTodoItem = async () => {
     toggleChecked();
     let x = await toggleItemStatus(id, checked);
+
     mutate(
       ["/api/getItems", auth.user.token],
       async (data) => {
